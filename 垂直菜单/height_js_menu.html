@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+        }
+        ul{
+            list-style: none;
+            height: 32px;
+            border-bottom: 5px solid #1eb450;
+            padding-left: 30px;
+        }
+        li{
+            float: left;
+            margin-top: 2px;
+        }
+        a{
+            width: 120px;
+            text-decoration: none;
+            display: block;
+            height: 30px;
+            line-height: 30px;
+            background-color: #00b3ee;
+            text-align: center;
+        }
+        .on,a:hover{
+            background-color: #1eb450;
+            height: 40px;
+            margin-top: -10px;
+            color: #ffffff;
+            line-height: 40px;
+        }
+
+    </style>
+    <script src="jquery-1.9.1.min.js"></script>
+    <script>
+        $(function(){
+            $('a').hover(function(){
+                $(this).stop().animate({"width":"160px"},300);
+            },function(){
+                $(this).stop().animate({"width":"120px"},300);
+            })
+        })
+    </script>
+    <script>
+        window.onload=function(){
+            var oNav=document.getElementsByTagName('ul')[0];
+            var aA=oNav.getElementsByTagName('a');
+            for(var i=0; i<aA.length; i++){
+                aA[i].onmouseover=function(){
+                    if(this.className!="on"){
+                        clearInterval(this.timer);
+                        var This=this;
+                        This.time=setInterval(function(){
+                            This.style.width=This.offsetWidth+8+"px";
+                            if(This.offsetWidth>=120)
+                                clearInterval(This.time);
+                        },30)
+                    }
+                }
+                aA[i].onmouseout=function(){
+                    if(this.className!="on"){
+                        clearInterval(this.time);
+                        var This=this;
+                        this.time=setInterval(function(){
+                            This.style.width=This.offsetWidth-8+"px";
+                            if(This.offsetWidth<=80){
+                                This.style.width='80px';
+                                clearInterval(This.time);
+                            }
+                        },30)
+                    }
+                }
+            }
+        }
+    </script>
+
+</head>
+<body>
+<ul style="margin-top: 30px">
+    <li><a  class="on" href="#">首页</a></li>
+    <li><a href="#">新闻</a></li>
+    <li><a href="#">产品</a></li>
+    <li><a href="#">售后</a></li>
+</ul>
+</body>
+</html>
